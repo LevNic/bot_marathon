@@ -63,12 +63,12 @@ class Vk_bot:
         return get_message
 
     def list_rrule(self):
-        if datetime.now().time().hour > 13:
+        if datetime.now().time().hour > 6:
             print('+ 1 DAY')
             d = datetime.now().date() + timedelta(days=1)
         else:
             d = datetime.now().date()
-        t = time(13, 10)
+        t = time(6, 30)
         start = datetime.combine(d, t)  
         print('TIME START SERIES', start)
         list_rrule = list(rrule.rrule(rrule.MINUTELY, count=len(self.series_list), dtstart=start))
