@@ -1,6 +1,6 @@
 import re
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 from dateutil import rrule
 
 from data_graph import graph_creator, data_for_graph, series_list_creator
@@ -16,7 +16,7 @@ class Vk_bot:
         self.user_id = user_id
         self.name = self.method.get_user_name(self.user_id)
         self.graph = graph_creator(data_for_graph)
-        self.graph_message = GraphMessages(self.name, self.graph)
+        self.message = GraphMessages(self.name, self.graph)
         # Стартовый этап всегда должен называться hello
         self.real_step_graph = 'hello'
         self.series_list = series_list_creator()
@@ -41,11 +41,9 @@ class Vk_bot:
             new_structure = self.manager.run_manager()
             if len(new_structure) > 0:
                 self.graph = graph_creator(new_structure)
-                print('GRAPH UPDATED', self.graph.vertexes.keys())
                 get_message = self.series_preparation()
-                print('UPDATED MESSAGE', get_message)
             print('RRULE', item)
-            print('NEW_DATE', datetime.now())
+            print('NOW_DATE', datetime.now())
             delta = item - datetime.now()
             print('DELTA', delta)
             second = delta.total_seconds()
@@ -64,9 +62,15 @@ class Vk_bot:
         get_message = message.get_all(series_list)
         return get_message
 
-    def list_rrule(self):   
-        start = datetime.now() + timedelta(minutes=1)
-        print('START', start)
+    def list_rrule(self):
+        if datetime.now().time().hour > 13:
+            print('+ 1 DAY')
+            d = datetime.now().date() + timedelta(days=1)
+        else:
+            d = datetime.now().date()
+        t = time(13, 10)
+        start = datetime.combine(d, t)  
+        print('TIME START SERIES', start)
         list_rrule = list(rrule.rrule(rrule.MINUTELY, count=len(self.series_list), dtstart=start))
         return list_rrule
 
@@ -92,4 +96,3 @@ class Vk_bot:
         get_message = message.get_one_message(self.real_step_graph)
         #print('SPEAKER MESSAGE', get_message)
         self.post_all(get_message)
-        

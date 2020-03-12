@@ -56,6 +56,7 @@ class GraphMessages:
         text = self.text_preparation.send_name(text)
         message['message'] = text
         img = self.graph.vertexes[step].get('img')
+        print('IMG', img)
         if img:
             message['attachment'] = self.img.attachment_for_graph(img)
         else:

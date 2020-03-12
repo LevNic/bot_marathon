@@ -12,14 +12,17 @@ class ImagesFile:
         file_path = f'Images/{file_name}'
         r = requests.get(image_url)
         if r.status_code == 200:
-            print('Success!')
+            print('Success img resource!')
             with open(file_path, 'wb') as f:
                 f.write(r.content)
+            return file_path
         else:
             print('Not images')
 
     def attachment_for_graph(self, name_file):
+        print('FILE NAME FOR ATTACHMENT', name_file)
         photo = self.method.upload().photo_messages(photos=name_file)[0]
+        # print('PHOTO', photo)
         owner_id = photo['owner_id']
         photo = photo['id']
         attach = f'photo{owner_id}_{photo}'
@@ -35,3 +38,8 @@ class ImagesFile:
         else:
             attach = 0
         return attach
+
+if __name__ == '__main__':
+    img = ImagesFile()
+    path = img.make_img_file('https://cp.beget.com/i/logo@x2.png')
+    print('PAHT', path)

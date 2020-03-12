@@ -1,5 +1,6 @@
 from calendar import monthrange
 from datetime import datetime
+from datetime import time as tm
 from dateutil import rrule
 from time import sleep, ctime, time
 import threading
@@ -146,14 +147,3 @@ class SetTimes:
                 sleep(second)
                 flag = True
         return flag
-
-  
-        
-        
-    
-
-if __name__ == '__main__':
-    tm = SetTimes(1)
-    print(tm.time_now())
-    print(tm.time_now_utc())
-    #print(timer(2020, 1, 29, 11, 28))

@@ -4,8 +4,10 @@ import re
 
 from file_manager import FileManager
 from config_bot import name_marathon
+from make_img import ImagesFile
 
 file_manager = FileManager()
+img = ImagesFile()
 # Структура данных графа: [основной файл графа, [файл с веткой графа - вершина графа к которой прицеплена ветка], [...], [...]]
 # data_for_graph = ['english_marathon-vertex.csv', ['english_marathon-hello.csv', 'hello'], 
 #                ['english_marathon-small_steps.csv', 'small_steps' ]]
@@ -46,7 +48,7 @@ class Graph:
     # Получение данных из файла csv
     def csv_reader(self):
         data = []
-        print('NAME MARATHON', self.name_marathon)
+        # print('NAME MARATHON', self.name_marathon)
         link_file = f'CsvFile/{self.name_marathon}/{self.name_file}'
         print('LINK', link_file)
         with open(link_file, 'r') as f:
@@ -81,11 +83,25 @@ class Graph:
             for empty_key in empty_keys:
                 del d[empty_key]
 
+            # Создаем файл с картинкой, если картинка ссылка
+            name_img = d.get('img')
+            print('NAME IMG', name_img, type(name_img))
+            
+            if name_img:
+                pattern = re.findall(r'^http.+', name_img)
+                if len(pattern) > 0:
+                    if name_img == pattern[0]:
+                        like_img = img.make_img_file(d.get('img'))
+                        d['img'] = like_img
+                        print('LIKE UPDATED', like_img)
+
             # Меняем тип данных text
             text_list = []
             text_list.append(d['text'])
             d['text'] = text_list
             self.vertexes[key] = d
+
+            
 
     # Создание ребер из вершин
     def __edges_from_vertices(self):
