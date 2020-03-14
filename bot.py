@@ -33,7 +33,7 @@ class Vk_bot:
     # Отправляет серию сообщений с заданным интервалом
     # Предварительно проверяем наличие обновлений
     def series(self):
-        print('ВЫЗЫВАЕМ СЕРИЮ')
+        print('ВЫЗВАЛИ СЕРИЮ')
         get_message = self.series_preparation()
         list_rrule = self.list_rrule()
         step = 0
@@ -42,11 +42,12 @@ class Vk_bot:
             if len(new_structure) > 0:
                 self.graph = graph_creator(new_structure)
                 get_message = self.series_preparation()
-            print('RRULE', item)
+            print('TIME RRULE', item)
             print('NOW_DATE', datetime.now())
             delta = item - datetime.now()
             print('DELTA', delta)
             second = delta.total_seconds()
+            print('DELTA SECONDS', second)
             while second > 0:
                 delta = item - datetime.now()
                 second = delta.total_seconds()
@@ -56,7 +57,7 @@ class Vk_bot:
     
     # Подготавливаем данные для отправки серии сообщений
     def series_preparation(self):
-        print('SERIES STARTED')
+        print('SERIES DATA PREPARATION STARTED')
         series_list = self.series_list
         message = GraphMessages(self.name, self.graph)
         get_message = message.get_all(series_list)
