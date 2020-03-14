@@ -65,7 +65,7 @@ class FileManager:
     def updata_file(self):
         path = os.path.join(self.current_directory, self.__path_sharing)
         print('PATH', path)
-        return os.system(f'rclone sync google:Bot/{self.name_marathon}/ {path} -P')
+        return os.system(f'sudo rclone sync google:Bot/{self.name_marathon}/ {path} -P')
 
     # Обновление файлов графа
     def update_graph(self):

@@ -64,15 +64,15 @@ class Vk_bot:
         return get_message
 
     def list_rrule(self):
-        if datetime.now().time().hour > 6:
+        if datetime.now().time().hour > 3:
             print('+ 1 DAY')
             d = datetime.now().date() + timedelta(days=1)
         else:
             d = datetime.now().date()
-        t = time(6, 30)
+        t = time(3, 30)
         start = datetime.combine(d, t)  
         print('TIME START SERIES', start)
-        list_rrule = list(rrule.rrule(rrule.MINUTELY, count=len(self.series_list), dtstart=start))
+        list_rrule = list(rrule.rrule(rrule.DAILY, count=len(self.series_list), dtstart=start))
         return list_rrule
 
     # Отправляет серию сообщений с заданным интервалом на основе графа
