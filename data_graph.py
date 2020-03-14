@@ -93,7 +93,7 @@ class Graph:
                     if name_img == pattern[0]:
                         like_img = img.make_img_file(d.get('img'))
                         d['img'] = like_img
-                        print('LIKE UPDATED', like_img)
+                        print('LINK UPDATED', like_img)
 
             # Меняем тип данных text
             text_list = []
