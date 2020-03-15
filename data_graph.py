@@ -20,7 +20,6 @@ def graph_creator(data_for_graph):
     if len(data_for_graph) >= 2:
         print('STEPS', len(data_for_graph))
         for i in range(1, len(data_for_graph)):
-            print('I0', data_for_graph[i][0])
             graph.create_new_branch(data_for_graph[i][0], data_for_graph[i][1])
             print(f'STEP {i}: {data_for_graph[i][0]}, {data_for_graph[i][1]}')
     return graph

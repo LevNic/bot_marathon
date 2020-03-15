@@ -138,5 +138,6 @@ class FileManager:
             print('MARATHON NOT CREATED')
             message = 'MARATHON NOT CREATED'
             new_struct = []
+        print('*' * 52)
         return new_struct
 

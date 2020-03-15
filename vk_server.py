@@ -50,6 +50,7 @@ class VkServer:
                     self.third_series[self.user_id] = threading.Thread(target=self.bot[self.user_id].series, daemon=False)
                     print('ВЫЗЫВАЕМ СЕРИЮ')
                     self.third_series[self.user_id].start()
+                print('*' * 52)
 
                 # Запускаем диалог
                 self.bot[self.user_id].speaker_for_graph()

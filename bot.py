@@ -36,6 +36,7 @@ class Vk_bot:
         print('ВЫЗВАЛИ СЕРИЮ')
         get_message = self.series_preparation()
         list_rrule = self.list_rrule()
+        print('LIST RRULE', list_rrule)
         step = 0
         for item in list_rrule:
             new_structure = self.manager.run_manager()
@@ -51,6 +52,8 @@ class Vk_bot:
             while second > 0:
                 delta = item - datetime.now()
                 second = delta.total_seconds()
+                if datetime.now().microsecond == 0 and datetime.now().minute == 0 and datetime.now().second == 0:
+                    print('TO START:', delta)
             print(f'STEP {step} OF {len(list_rrule)}')
             self.post_series_graph(step, get_message)
             step += 1
@@ -97,3 +100,5 @@ class Vk_bot:
         get_message = message.get_one_message(self.real_step_graph)
         #print('SPEAKER MESSAGE', get_message)
         self.post_all(get_message)
+        print('ANSWER POSTED')
+        print('*' * 52)
